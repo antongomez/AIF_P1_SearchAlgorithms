@@ -22,9 +22,11 @@ def path_states(node):
 
 def run_search_algorithm(problem, algorithm, verbose=False):
     """Run a search algorithm from the search module and print the followed path of states and actions."""
-    print(
-        f"#################################\nRunning {algorithm.__name__} algorithm\n#################################"
-    )
+
+    if verbose:
+        print(
+            f"#################################\nRunning {algorithm.__name__} algorithm\n#################################"
+        )
     node = algorithm(problem)
     if verbose:
         print(f"\nPath cost: {node.path_cost}")
