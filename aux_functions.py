@@ -15,20 +15,6 @@ def distance_between_orientations(orientation1, orientation2):
     return min((orientation1 - orientation2) % 8, (orientation2 - orientation1) % 8)
 
 
-def path_actions(node):
-    """The sequence of actions to get to this node."""
-    if node.parent is None:
-        return []
-    return path_actions(node.parent) + [node.action]
-
-
-def path_states(node):
-    """The sequence of states to get to this node."""
-    if node in (cutoff, failure, None):
-        return []
-    return path_states(node.parent) + [node.state]
-
-
 def run_search_algorithm(problem, algorithm, verbose=False):
     """Run a search algorithm from the search module and print the followed path of states and actions."""
 
@@ -38,7 +24,8 @@ def run_search_algorithm(problem, algorithm, verbose=False):
         )
     node = algorithm(problem)
     if verbose:
-        print(f"\nPath cost: {node.path_cost}")
+        print(f"\nDepth (d): {node.depth}")
+        print(f"Path cost (g): {node.path_cost}")
         if node == failure:
             print("Failure")
         elif node == cutoff:
@@ -46,8 +33,8 @@ def run_search_algorithm(problem, algorithm, verbose=False):
         else:
             print("\nPath actions:")
             print(f"State {0}: {problem.initial} (initial state)")
-            for i, state_action in enumerate(zip(path_states(node)[1:], path_actions(node))):
-                print(f"Action {i}: {state_action[1]}\nState {i+1}: {state_action[0]}")
+            for i, state_action in enumerate(zip(node.solution(), node.path()[1:])):
+                print(f"Action {i}: {state_action[0]}\nState {i+1}: {state_action[1].state}")
     return node
 
 
