@@ -1,4 +1,4 @@
-# P1_SearchAlgorithms
+# Artificial Intelligence Fundamentals - Assignment 1
 
 This repository is part of the first assignment for the Artificial Intelligence Fundamentals course. The objective of this assignment is to compare the performance of various search algorithms on a grid map and develop two heuristics for the A\* algorithm.
 
