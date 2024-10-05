@@ -35,6 +35,8 @@ def run_search_algorithm(problem, algorithm, verbose=False):
             print(f"State {0}: {problem.initial} (initial state)")
             for i, state_action in enumerate(zip(node.solution(), node.path()[1:])):
                 print(f"Action {i}: {state_action[0]}\nState {i+1}: {state_action[1].state}")
+            print(f"\nTotal number of items in explored list: {node.explored_items}")
+            print(f"Total number of items in frontier: {node.frontier_items}")
     return node
 
 
