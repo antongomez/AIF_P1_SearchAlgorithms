@@ -84,8 +84,8 @@ class Node:
         self.depth = 0
         if parent:
             self.depth = parent.depth + 1
-        self.explored_items = None
-        self.frontier_items = None
+        self.explored_nodes = None
+        self.frontier_nodes = None
 
     def __repr__(self):
         return "<Node {}>".format(self.state)
@@ -229,8 +229,8 @@ def depth_first_graph_search(problem):
     while frontier:
         node = frontier.pop()
         if problem.goal_test(node.state):
-            node.explored_items = len(explored)
-            node.frontier_items = len(frontier)
+            node.explored_nodes = len(explored)
+            node.frontier_nodes = len(frontier)
             return node
         explored.add(node.state)
         frontier.extend(
@@ -247,8 +247,8 @@ def breadth_first_graph_search(problem):
     """
     node = Node(problem.initial)
     if problem.goal_test(node.state):
-        node.explored_items = len(explored)
-        node.frontier_items = len(frontier)
+        node.explored_nodes = len(explored)
+        node.frontier_nodes = len(frontier)
         return node
     frontier = deque([node])
     explored = set()
@@ -258,8 +258,8 @@ def breadth_first_graph_search(problem):
         for child in node.expand(problem):
             if child.state not in explored and child not in frontier:
                 if problem.goal_test(child.state):
-                    child.explored_items = len(explored)
-                    child.frontier_items = len(frontier)
+                    child.explored_nodes = len(explored)
+                    child.frontier_nodes = len(frontier)
                     return child
                 frontier.append(child)
     return None
@@ -281,8 +281,8 @@ def best_first_graph_search(problem, f, display=False):
     while frontier:
         node = frontier.pop()
         if problem.goal_test(node.state):
-            node.explored_items = len(explored)
-            node.frontier_items = len(frontier)
+            node.explored_nodes = len(explored)
+            node.frontier_nodes = len(frontier)
             if display:
                 print(len(explored), "paths have been expanded and", len(frontier), "paths remain in the frontier")
             return node
