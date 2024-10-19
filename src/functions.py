@@ -160,15 +160,13 @@ def run_search_algorithm(problem, algorithm, verbose=False, output_file=None):
         elif solution == cutoff:
             text += "\nCutoff"
         else:
-            text += (
-                f"\nDepth (d): {solution.depth}\n"
-                + f"Path cost (g): {solution.path_cost}\n"
-                + "\nTrace:\n"
-                + "State {0}: {problem.initial} (initial state)\n"
-            )
+            text += f"\nState 0: {problem.initial} (starting node)\n"
 
+            number_of_last_node = len(solution.solution()) - 1
             for i, state_action in enumerate(zip(solution.solution(), solution.path()[1:])):
-                text += f"Action {i}: {state_action[0]}\nState {i+1}: {state_action[1].state}\n"
+                text += f"Action {i+1}: {state_action[0]}\nState {i+1}: {state_action[1].state}" + (
+                    f" (final node)\n" if i == number_of_last_node else "\n"
+                )
             text += (
                 f"\nTotal number of items in explored list: {solution.explored_nodes}\n"
                 + f"Total number of items in frontier: {solution.frontier_nodes}\n"
