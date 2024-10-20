@@ -7,7 +7,7 @@ import math
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib.colors import Normalize
+from matplotlib.colors import Normalize, ListedColormap
 from matplotlib.patches import Circle, FancyArrow
 
 failure = Node("failure", path_cost=math.inf)  # Indicates an algorithm couldn't find a solution.
@@ -397,14 +397,16 @@ def get_states_h2(state, goal):
 def plot_path_in_map(map, normalize=True, initial_state=None, states=None):
     fig, ax = plt.subplots()
 
-    # Define the normalization for the colors
+    # Define the normalization for the colors and plot the map
     if normalize:
-        norm = Normalize(vmin=np.min(map) - 1, vmax=np.max(map) + 2.5)
+        cax = ax.matshow(map, cmap="gray", norm=Normalize(vmin=np.min(map) - 1, vmax=np.max(map) + 2.5))
     else:
-        norm = Normalize(vmin=np.min(map), vmax=np.max(map))
-
-    # Plot the map
-    cax = ax.matshow(map, cmap="gray", norm=norm)
+        cax = ax.matshow(map, cmap=ListedColormap(["#5c5b5b"]))
+        cols = map.shape[1]
+        rows = map.shape[0]
+        ax.set_xticks(np.arange(-0.5, cols, 1), minor=True)
+        ax.set_yticks(np.arange(-0.5, rows, 1), minor=True)
+        ax.grid(which="minor", color="black", linestyle="-", linewidth=2)
 
     # Add the values of the map
     for i in range(map.shape[0]):
